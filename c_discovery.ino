@@ -1,12 +1,23 @@
 void drawDiscovery() {
-  gb.display.drawBitmap(discovery.x,discovery.y,SPRITE_DISCOVERY,NOROT,NOFLIP);
-  //gb.display.drawRect(discovery.x,discovery.y,16,8);
-  if (discovery.shielded) {
-    gb.display.drawBitmap(getShieldX() ,getShieldY(),SPRITE_DISCOVERY_SHIELD,NOROT,NOFLIP);
+  if (discovery.damage == 15) {
+    discovery.exploding = false;
+  }
+  
+  if (discovery.exploding) {
+    discovery.damage++;
+    for (byte i=0; i<15; i++) {
+      if (((discovery.damage - (2*i))) > 1) gb.display.drawCircle(discovery.x + (SPRITE_DISCOVERY_WIDTH/2),discovery.y + (SPRITE_DISCOVERY_HEIGHT / 2), (discovery.damage - (2*i)));
+    }
+  } else {
+    gb.display.drawBitmap(discovery.x,discovery.y,SPRITE_DISCOVERY,NOROT,NOFLIP);
+    if (discovery.shielded) {
+      gb.display.drawBitmap(getShieldX() ,getShieldY(),SPRITE_DISCOVERY_SHIELD,NOROT,NOFLIP);
+    }
   }
 }
 
 boolean checkForCollisionWithKlingonShip(const byte i) {
+  if (discovery.exploding) return false;
   //return gb.collideBitmapBitmap(discovery.x, discovery.y, SPRITE_DISCOVERY, klingonShips[i].x, klingonShips[i].y, klingonship);
   return gb.collideRectRect(discovery.x, discovery.y, 16, 8, klingonShips[i].x, klingonShips[i].y, SPRITE_KLINGONSHIP_HEIGHT, SPRITE_KLINGONSHIP_WIDTH);
 }
@@ -23,6 +34,12 @@ void addPoints(int points) {
   discovery.score += points;
 }
 
+void shootDiscovery() {
+  if (discovery.exploding) return;
+  discovery.exploding = true;
+  discovery.damage = 0;
+  removePoints(150);      
+}
 
 
 /**
@@ -38,14 +55,17 @@ void addPoints(int points) {
  * Es gibt 150 Punkte Abzug
  */
 void checkForCollisions(){
+  // Wenn das Schiff bereits explodiert, dann
+  // braucht man auch nicht auf moegliche 
+  // Kollisionen testen.
+  if (discovery.exploding) return;
+  
   for (byte i=0; i < NUM_KLINGONSHIPS; i++) {
     if (checkForCollisionWithKlingonShip(i)) {
+      if(discovery.shielded) {
         spawnKlingonShip(i);
-        if(discovery.shielded) {
-        //addPoints(5);
       } else {
-        discovery.exploding = true;
-        removePoints(150);
+        shootDiscovery();
         gb.sound.playTick();
       }
     }
@@ -64,6 +84,7 @@ void initDiscovery() {
   discovery.exploding = false;
   discovery.shielded  = false;
   discovery.score = 0;
+  discovery.damage = 0;
 }
 
 int getShieldX() {

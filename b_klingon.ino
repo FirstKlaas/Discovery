@@ -6,10 +6,14 @@ void drawKlingonShips() {
   }  
 }
 
+/**
+ * Materialisiert ein neues Klingonenschiff in der neutralen Zone.
+ * (Links ausserhalb des sichbaren Bereichs des LCD Screens)
+ */
 void spawnKlingonShip(const byte i) {
-  klingonShips[i].x = random(LCDWIDTH , LCDWIDTH + 150);
-  klingonShips[i].y = random(0,LCDHEIGHT);
-  klingonShips[i].vx = 2;
+  klingonShips[i].x = random(LCDWIDTH , LCDWIDTH + 200);
+  klingonShips[i].y = random(0,LCDHEIGHT-SPRITE_KLINGONSHIP_WIDTH);
+  klingonShips[i].vx = random(1,3);
   klingonShips[i].vy = 0;
   klingonShips[i].exploding = false;
 }

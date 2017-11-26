@@ -16,6 +16,8 @@ void initMissiles() {
 }
 
 void launchMissile() {
+  // Wenn man abgeschossen ist kann man wohl nicht schiessen.
+  if (discovery.exploding) return;
   const byte index = findNextMissile();
   if (index < 0) return;
   missiles[index].y = discovery.y + (SPRITE_DISCOVERY_HEIGHT / 2);
