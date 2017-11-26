@@ -33,6 +33,7 @@ void drawMissilesAndUpdatePosition() {
         if (gb.collideRectRect(missiles[i].x, missiles[i].y, missiles[i].w, missiles[i].h, klingonShips[k].x, klingonShips[k].y, 14, 8)) {
           // Klingonenschiff getroffen
           if (!klingonShips[k].exploding) {
+            gb.sound.playCancel();
             missiles[i].isActive = false;
             spawnKlingonShip(k);
             discovery.score += 10;

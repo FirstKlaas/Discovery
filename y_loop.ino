@@ -26,7 +26,7 @@ void loop() {
     drawKlingonShips();
     updateKlingonShips();
     
-    gb.display.cursorX = 10;
+    gb.display.cursorX = 40;
     gb.display.cursorY = 2;
     gb.display.print(discovery.score);
     

@@ -11,18 +11,42 @@ boolean checkForCollisionWithKlingonShip(const byte i) {
   return gb.collideRectRect(discovery.x, discovery.y, 16, 8, klingonShips[i].x, klingonShips[i].y, SPRITE_KLINGONSHIP_HEIGHT, SPRITE_KLINGONSHIP_WIDTH);
 }
 
+void removePoints(int points) {
+  if (discovery.score < points) {
+    discovery.score = 0;
+  } else {
+    discovery.score -= points;
+  }
+}
+
+void addPoints(int points) {
+  discovery.score += points;
+}
+
+
+
 /**
  * Prueft, ob die Discovery mit einem der Klingonenschiffe
- * kollidiert. 
+ * kollidiert. Bei einer Kollision werden zwei Faelle unterschieden.
+ * 
+ * Fall 1: Shielded
+ * Die Schilde der Discovery sind oben. Dann gibt es fuenf Punkte und das
+ * Klingonenschiff wird nu in der neutralen Zone gespawned.
+ * 
+ * Fall 2: Not Shielded
+ * Die Schilde sind unten. Dann wird die Discovery zertoert. 
+ * Es gibt 150 Punkte Abzug
  */
 void checkForCollisions(){
   for (byte i=0; i < NUM_KLINGONSHIPS; i++) {
     if (checkForCollisionWithKlingonShip(i)) {
-      if(discovery.shielded) {
         spawnKlingonShip(i);
-        discovery.score += 5;
+        if(discovery.shielded) {
+        //addPoints(5);
       } else {
         discovery.exploding = true;
+        removePoints(150);
+        gb.sound.playTick();
       }
     }
   }
