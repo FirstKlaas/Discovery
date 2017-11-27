@@ -1,7 +1,7 @@
 #include <Gamebuino.h>
 #include "space.h"
 
-#define NUM_KLINGONSHIPS 8
+#define NUM_KLINGONSHIPS 6
 #define NUM_MISSILES 10
 #define SPRITE_DISCOVERY_HEIGHT 8
 #define SPRITE_DISCOVERY_WIDTH  16

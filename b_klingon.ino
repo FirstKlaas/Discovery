@@ -11,7 +11,7 @@ void drawKlingonShips() {
  * (Links ausserhalb des sichbaren Bereichs des LCD Screens)
  */
 void spawnKlingonShip(const byte i) {
-  klingonShips[i].x = random(LCDWIDTH , LCDWIDTH + 200);
+  klingonShips[i].x = random(LCDWIDTH , 127);
   klingonShips[i].y = random(0,LCDHEIGHT-SPRITE_KLINGONSHIP_WIDTH);
   klingonShips[i].vx = random(1,3);
   klingonShips[i].vy = 0;
@@ -30,7 +30,7 @@ void initKlingonShips() {
 void updateKlingonShip(const byte i) {
   klingonShips[i].x -= klingonShips[i].vx;
   klingonShips[i].y -= klingonShips[i].vy;
-  if (klingonShips[i].x < -16) {
+  if (klingonShips[i].x < - 16) {
     spawnKlingonShip(i);
   }
 }

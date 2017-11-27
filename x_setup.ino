@@ -1,6 +1,7 @@
 void setup() {
   Serial.begin(9600);  
   initDiscovery();
+  discovery.score = LCDWIDTH;
   initKlingonShips();
   initMissiles();
   gb.begin();

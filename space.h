@@ -3,17 +3,18 @@
 #include <stdint.h>
 
 typedef struct{
-  uint8_t x, y;
+  int8_t x, y;
   uint8_t exploding, vx, vy;
 } KlingonShip;
 
 typedef struct {
-  uint8_t x, y, score;
+  int8_t x, y;
   uint8_t exploding, shielded, damage, vx, vy, h, w,shield_dx, shield_dy;
+  uint16_t score;
 } Discovery;
 
 typedef struct {
-  uint8_t x, y;
+  int8_t x, y;
   uint8_t w, h, isActive, vx;
 } Missile;
 
