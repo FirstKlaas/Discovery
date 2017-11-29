@@ -38,7 +38,7 @@ void drawMissilesAndUpdatePosition() {
             gb.sound.playCancel();
             missiles[i].isActive = false;
             spawnKlingonShip(k);
-            discovery.score += 10;
+            addPoints(15);
           }
         }
       }

@@ -26,9 +26,15 @@ void loop() {
     drawKlingonShips();
     updateKlingonShips();
     
-    gb.display.cursorX = 40;
+    gb.display.cursorX = 25;
     gb.display.cursorY = 2;
     gb.display.print(discovery.score);
+    gb.display.cursorX = 45;
+    gb.display.cursorY = 2;
+    gb.display.print("Lvl:");
+    gb.display.cursorX = 60;
+    gb.display.cursorY = 2;
+    gb.display.print(discovery.lvl+1);
     
   }
 }

@@ -1,8 +1,6 @@
 void drawKlingonShips() {
   for (byte i=0; i < NUM_KLINGONSHIPS; i++) {
     gb.display.drawBitmap(klingonShips[i].x,klingonShips[i].y,klingonship,ROTCCW,NOFLIP);
-    //gb.display.drawRect(klingonShips[i].x,klingonShips[i].y,14,8);
-  
   }  
 }
 

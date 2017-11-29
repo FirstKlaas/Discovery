@@ -2,7 +2,7 @@ void drawDiscovery() {
   if (discovery.damage == 15) {
     discovery.exploding = false;
   }
-  
+
   if (discovery.exploding) {
     discovery.damage++;
     for (byte i=0; i<15; i++) {
@@ -24,21 +24,23 @@ boolean checkForCollisionWithKlingonShip(const byte i) {
 
 void removePoints(int points) {
   if (discovery.score < points) {
-    discovery.score = 0;
+    addPoints(-1 * discovery.score);
   } else {
-    discovery.score -= points;
+    addPoints(-1 * points);
   }
 }
 
 void addPoints(int points) {
   discovery.score += points;
+  discovery.lvl = discovery.score / 100;
+  discovery.x   = min(discovery.x0 + (discovery.lvl * LEVEL_JUMP_DX), 10*LEVEL_JUMP_DX); 
 }
 
 void shootDiscovery() {
   if (discovery.exploding) return;
   discovery.exploding = true;
   discovery.damage = 0;
-  removePoints(150);      
+  removePoints(DAMAGE_COLLISION);      
 }
 
 
@@ -73,18 +75,20 @@ void checkForCollisions(){
 }
 
 void initDiscovery() {
-  discovery.x  = 5;
-  discovery.y  = LCDHEIGHT/2;
-  discovery.vx = 0;
-  discovery.vy = 2;
-  discovery.h  = 14;
-  discovery.w  = 8;
+  discovery.x0        = 5;
+  discovery.x         = discovery.x0;
+  discovery.y         = LCDHEIGHT/2;
+  discovery.vx        = 0;
+  discovery.vy        = 2;
+  discovery.h         = 14;
+  discovery.w         = 8;
   discovery.shield_dx = 11;
   discovery.shield_dy = -2;
   discovery.exploding = false;
   discovery.shielded  = false;
-  discovery.score = 0;
-  discovery.damage = 0;
+  discovery.score     = 0;
+  discovery.damage    = 0;
+  discovery.lvl       = 0;
 }
 
 int getShieldX() {
