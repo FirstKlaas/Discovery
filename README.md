@@ -6,3 +6,5 @@ Just open the discovery.ino sketch in your arduino ide (I used v1.8.5) and uploa
 Have Fun.
 
 Because this is a little fun project I develop with and for my children, the comments are in german.
+
+It's an easy game.
