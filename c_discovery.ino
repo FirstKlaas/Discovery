@@ -1,12 +1,18 @@
+void drawLives() {
+  for (uint8_t i=0; i<game.number_of_lives; i++) {
+    gb.display.drawBitmap(50+(i*6),LCDHEIGHT - 5, SPRITE_LIVE);
+  }
+}
+
 void drawDiscovery() {
-  if (discovery.damage == 15) {
+  if (discovery.damage == NUMBER_OF_EXPLOSION_FRAMES) {
     discovery.exploding = false;
   }
 
   if (discovery.exploding) {
     discovery.damage++;
     for (byte i=0; i<15; i++) {
-      if (((discovery.damage - (2*i))) > 1) gb.display.drawCircle(discovery.x + (SPRITE_DISCOVERY_WIDTH/2),discovery.y + (SPRITE_DISCOVERY_HEIGHT / 2), (discovery.damage - (2*i)));
+      if (((discovery.damage - (4*i))) > 1) gb.display.drawCircle(discovery.x + (SPRITE_DISCOVERY_WIDTH/2),discovery.y + (SPRITE_DISCOVERY_HEIGHT / 2), (discovery.damage - (4*i)));
     }
   } else {
     gb.display.drawBitmap(discovery.x,discovery.y,SPRITE_DISCOVERY,NOROT,NOFLIP);
@@ -41,6 +47,11 @@ void shootDiscovery() {
   discovery.exploding = true;
   discovery.damage = 0;
   removePoints(DAMAGE_COLLISION);      
+  if (game.number_of_lives > 1) {
+    game.number_of_lives--;
+  } else {
+    game.is_running = false;
+  }
 }
 
 

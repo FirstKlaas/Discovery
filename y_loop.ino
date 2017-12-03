@@ -1,12 +1,25 @@
 void loop() {
   if (gb.update()) {
     if(gb.buttons.pressed(BTN_C)){
-      initDiscovery();
-      initKlingonShips();
+      if (game.is_running) {
+        game.is_running = false;
+        gb.display.persistence = true; 
+
+      } else {
+        initGame();
+        game.is_running = true;
+        gb.display.persistence = false; 
+      }
     }
+    
+    if (!game.is_running) {
+      gb.titleScreen(F("FirstKlaas"), SPRITE_DISCOVERY);  
+      return;
+    }
+    
     //if (gb.buttons.pressed(BTN_B)) {
     if (gb.buttons.pressed(BTN_A)) {
-      launchMissile();
+      if (!discovery.shielded) launchMissile();
     }
     if (gb.buttons.repeat(BTN_B, 1)) {
       discovery.shielded = true;
@@ -24,9 +37,10 @@ void loop() {
     drawMissilesAndUpdatePosition();
     drawDiscovery();
     drawKlingonShips();
+    drawLives();  
     updateKlingonShips();
     
-    gb.display.cursorX = 25;
+    gb.display.cursorX = 20;
     gb.display.cursorY = 2;
     gb.display.print(discovery.score);
     gb.display.cursorX = 45;

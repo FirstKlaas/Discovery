@@ -31,6 +31,15 @@ const static unsigned char PROGMEM SPRITE_DISCOVERY[]=
   B01100000, B00100000
 };
 
+const static unsigned char PROGMEM SPRITE_LIVE[]=
+{
+  5, 4,
+  B01010000,
+  B11111000,
+  B01110000,
+  B00100000
+  
+};
 /** 
 const static unsigned char PROGMEM SPRITE_DISCOVERY_H[]=
 {

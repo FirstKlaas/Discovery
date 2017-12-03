@@ -1,4 +1,3 @@
-#include <Gamebuino.h>
 #include "space.h"
 
 #define NUM_KLINGONSHIPS 6
@@ -11,8 +10,19 @@
 KlingonShip klingonShips[NUM_KLINGONSHIPS];
 Discovery discovery;
 Missile missiles[NUM_MISSILES];
+Game game;
 
 Gamebuino gb;
+
+void initGame() {
+  game.number_of_lives = 5; 
+  game.max_number_of_lives  = 6; 
+  game.is_running = false;
+  initDiscovery();
+  initKlingonShips();
+  initMissiles();
+
+}
 
 
 

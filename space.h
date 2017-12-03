@@ -2,8 +2,16 @@
 #define __space_h
 #include <stdint.h>
 
+#include <Gamebuino.h>
+
 #define LEVEL_JUMP_DX 1
 #define DAMAGE_COLLISION 50
+#define NUMBER_OF_EXPLOSION_FRAMES 25
+
+typedef struct {
+  uint8_t number_of_lives, max_number_of_lives; 
+  boolean is_running; 
+} Game;
 
 typedef struct{
   int8_t x, y;
